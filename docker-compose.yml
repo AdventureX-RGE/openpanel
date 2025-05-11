@@ -109,20 +109,10 @@ services:
     expose:
       - 3000
     labels:
-      - "traefik.http.routers.infra-openpanel-uttntd-59-web.rule=Host(`panel.adventure-x.org`) && PathPrefix(`/api`)"
-      - "traefik.http.routers.infra-openpanel-uttntd-59-web.entrypoints=web"
-      - "traefik.http.services.infra-openpanel-uttntd-59-web.loadbalancer.server.port=3000"
-      - "traefik.http.routers.infra-openpanel-uttntd-59-web.service=infra-openpanel-uttntd-59-web"
-      - "traefik.http.routers.infra-openpanel-uttntd-59-web.middlewares=infra-openpanel-uttntd-59-web-strip@docker,redirect-to-https@file"
-      - "traefik.http.routers.infra-openpanel-uttntd-59-websecure.rule=Host(`panel.adventure-x.org`) && PathPrefix(`/api`)"
-      - "traefik.http.routers.infra-openpanel-uttntd-59-websecure.entrypoints=websecure"
-      - "traefik.http.services.infra-openpanel-uttntd-59-websecure.loadbalancer.server.port=3000"
-      - "traefik.http.routers.infra-openpanel-uttntd-59-websecure.service=infra-openpanel-uttntd-59-websecure"
-      - "traefik.http.routers.infra-openpanel-uttntd-59-websecure.tls.certresolver=letsencrypt"
-      - "traefik.http.routers.infra-openpanel-uttntd-59-websecure.middlewares=infra-openpanel-uttntd-59-websecure-strip@docker"
-      - "traefik.http.middlewares.infra-openpanel-uttntd-59-web-strip.stripPrefix.prefixes=/api"
-      - "traefik.http.middlewares.infra-openpanel-uttntd-59-websecure-strip.stripPrefix.prefixes=/api"
-      - "traefik.enable=true"
+      - traefik.http.routers.infra-openpanel-adz5pb-9-web.middlewares=strip-api-prefix
+      - traefik.http.routers.infra-openpanel-adz5pb-9-websecure.middlewares=strip-api-prefix
+      - traefik.http.middlewares.strip-api-prefix.stripprefix.prefixes=/api
+
 
   op-dashboard:
     image: lindesvard/openpanel-dashboard:latest
@@ -147,8 +137,8 @@ services:
     expose:
       - 3000
     labels:
-      - "traefik.http.routers.infra-openpanel-uttntd-61-web.middlewares=redirect-to-https@file,worker-basic-auth@file"
-      - "traefik.http.routers.infra-openpanel-uttntd-61-websecure.middlewares=worker-basic-auth@file"
+      - "traefik.http.routers.infra-openpanel-adz5pb-11-web.middlewares=redirect-to-https@file,worker-basic-auth@file"
+      - "traefik.http.routers.infra-openpanel-adz5pb-11-websecure.middlewares=worker-basic-auth@file"
 
 volumes:
   op-db-data:
