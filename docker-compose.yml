@@ -109,7 +109,7 @@ services:
     expose:
       - 3000
     labels:
-      - traefik.http.routers.infra-openpanel-adz5pb-9-web.middlewares=strip-api-prefix
+      - traefik.http.routers.infra-openpanel-adz5pb-9-web.middlewares=strip-api-prefix,redirect-to-https@file
       - traefik.http.routers.infra-openpanel-adz5pb-9-websecure.middlewares=strip-api-prefix
       - traefik.http.middlewares.strip-api-prefix.stripprefix.prefixes=/api
 
